@@ -1,0 +1,15 @@
+[Unit]
+Description=BlackBlood VPN Webhook (FastAPI)
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/blackblood
+ExecStart=/usr/bin/python3 run_webhook.py
+Restart=always
+RestartSec=10
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target

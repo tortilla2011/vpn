@@ -1,0 +1,13 @@
+[Unit]
+Description=BlackBlood VPN Config Sync
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /opt/blackblood/server/sync_users.py
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

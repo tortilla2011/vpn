@@ -1,0 +1,48 @@
+{
+  "log": { "loglevel": "warning" },
+  "api": {
+    "services": ["HandlerService", "LoggerService", "StatsService"],
+    "tag": "api"
+  },
+  "inbounds": [
+    {
+      "port": 443,
+      "protocol": "vless",
+      "tag": "vless-inbound",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "dest": "www.microsoft.com:443",
+          "serverNames": ["www.microsoft.com", "cloudflare.com"],
+          "privateKey": "ПРИВАТНЫЙ_КЛЮЧ_ЭТОГО_СЕРВЕРА",
+          "shortIds": ["КОРОТКИЙ_ID_ЭТОГО_СЕРВЕРА"]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    { "protocol": "freedom", "tag": "direct" },
+    { "protocol": "blackhole", "tag": "block" }
+  ],
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 4,
+        "connIdle": 300,
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    }
+  },
+  "stats": {},
+  "routing": {
+    "rules": [
+      { "type": "field", "inboundTag": ["api"], "outboundTag": "api" }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+[Unit]
+Description=BlackBlood VPN Bot
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/blackblood/bot
+ExecStart=/usr/bin/python3 -m bot.main
+Restart=always
+RestartSec=10
+Environment="PYTHONUNBUFFERED=1"
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target
